@@ -5,4 +5,10 @@ object LottoResults {
 
     var lottoResult = mutableListOf<Int>()
 
+    var bonusNum = 0
+
+    var stats = mutableMapOf<MatchType, Int>().withDefault { 0 }
+
+    var profitRatio = 0.0
+
 }

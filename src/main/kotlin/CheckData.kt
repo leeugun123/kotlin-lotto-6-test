@@ -1,4 +1,4 @@
-class CheckData {
+object CheckData {
 
     val INPUT_AGAIN = "다시 입력하세요."
     val WRONG_FORMAT = "잘못된 형식입니다. $INPUT_AGAIN"

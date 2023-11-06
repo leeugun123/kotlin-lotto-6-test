@@ -6,14 +6,21 @@ class LottoUI {
     //로또 구입 시작
     fun lottoExc(){
 
-        val purchaseNum = LottoController().lottoPurchase()
+        val purchaseNum = LottoController.lottoPurchase()
         //로또 개수 입력 받기
 
-        LottoController().lottoDraw(purchaseNum)
+        LottoController.lottoDraw(purchaseNum)
         //로또 뽑기
 
-        LottoController().inputNum()
+        LottoController.inputNum()
         //로또 번호 입력 받기
+
+        LottoController.analyzeLotto()
+        //로또 번호 분석
+
+        LottoController.showResult()
+        //로또 당첨 결과 출력
+
 
 
     }
