@@ -6,6 +6,17 @@ class LottoUi {
     //로또 구입 시작
     fun lottoExc(){
 
+
+        lottoPurchase()
+
+
+
+
+
+    }
+
+    private fun lottoPurchase(){
+
         while(true){
 
             try {
@@ -17,22 +28,11 @@ class LottoUi {
                 break
             }
             catch (e : IllegalArgumentException){
-
                 println("예외 발생: ${e.message} 다시 입력해주세요.")
-
             }
 
 
         }
-
-
-
-
-
-
-
-
-
 
 
     }
