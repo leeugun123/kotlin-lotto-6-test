@@ -13,52 +13,39 @@ class LottoUi {
         lottoDraw(purchaseNum)
         //로또 뽑기
 
-        val drawLottoNum = inputLottoNum()
+        LottoResults.lottoResult = inputLottoNum()
 
 
 
     }
 
-    private fun lottoPurchase() : Int{
-
-        while(true){
-
+    private fun lottoPurchase(): Int {
+        while (true) {
             try {
-
                 println("구입금액을 입력해주세요.")
                 val inputMoney = Console.readLine()
                 CheckData().checkInputMoney(inputMoney)
-
                 return Integer.parseInt(inputMoney) / 1000
-            }
-            catch (e : IllegalArgumentException){
+            } catch (e: IllegalArgumentException) {
                 println("예외 발생: ${e.message} 다시 입력해주세요.")
             }
-
-
         }
-
-
     }
 
     private fun lottoDraw(purchaseNum : Int) {
 
         repeat(purchaseNum){
 
-
             val lottoNum = Randoms.pickUniqueNumbersInRange(1,45,6)
 
             Lotto(lottoNum).printNumbers()
-
             //당첨된 로또 번호 출력
 
         }//구매한 로또 개수 만큼 반복
 
-
     }
 
     private fun inputLottoNum() : List<Int>{
-
 
         val tempLotto = mutableListOf<Int>()
 

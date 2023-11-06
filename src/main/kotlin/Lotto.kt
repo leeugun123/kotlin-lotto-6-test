@@ -4,6 +4,7 @@ class Lotto ( private val numbers: List<Int>) {
 
     init {
         require(numbers.size == 6)
+        LottoResults.lottoNums.add(numbers)
     }
 
     //추가 메소드 구현
