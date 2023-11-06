@@ -13,7 +13,7 @@ class LottoUi {
         lottoDraw(purchaseNum)
         //로또 뽑기
 
-        LottoResults.lottoResult = inputLottoNum()
+        inputLottoNum()
 
 
 
@@ -45,20 +45,56 @@ class LottoUi {
 
     }
 
-    private fun inputLottoNum() : List<Int>{
+    private fun inputLottoNum(){
 
-        val tempLotto = mutableListOf<Int>()
+        LottoResults.lottoResult = checkInputLottoNum()
 
-        println("당첨 번호를 입력해 주세요.")
+        LottoResults.lottoResult.add(checkInputBonusNum())
 
-        val inputNum = Console.readLine()
 
-        println("보너스 번호를 입력해 주세요.")
+    }
 
-        val bonusNum = Console.readLine()
+    private fun checkInputLottoNum() : MutableList<Int>{
 
-        return tempLotto
+        while (true) {
 
+            try {
+                println("당첨 번호를 입력해 주세요.")
+                val inputNum = Console.readLine()
+                CheckData().checkLottoNum(inputNum)
+
+                return addStringToList(inputNum)
+
+            } catch (e: IllegalArgumentException) {
+                println("${e.message}")
+            }
+
+        }
+
+    }
+
+    private fun checkInputBonusNum() : Int{
+
+        while (true) {
+
+            try {
+
+                println("보너스 번호를 입력해 주세요.")
+                val bonusNum = Console.readLine()
+                CheckData().checkBonusNum(bonusNum)
+                return bonusNum.toInt()
+
+            } catch (e: IllegalArgumentException) {
+                println("${e.message}")
+            }
+
+        }
+
+    }
+
+    private fun addStringToList(input: String): MutableList<Int> {
+        val numbers = input.split(",").map { it.trim().toInt() }
+        return numbers.toMutableList()
     }
 
 
