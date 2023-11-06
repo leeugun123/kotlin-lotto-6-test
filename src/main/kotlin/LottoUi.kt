@@ -2,6 +2,8 @@ import camp.nextstep.edu.missionutils.Console
 
 class LottoUi {
 
+
+    //로또 구입 시작
     fun lottoExc(){
 
         while(true){
