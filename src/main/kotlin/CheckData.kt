@@ -27,12 +27,12 @@ class CheckData {
 
         require(checkDigitNum(bonusNum)) {WRONG_FORMAT}
         require(checkRange(bonusNum)){WRONG_RANGE}
-        require(checkDuplicateBonus(LottoResults.lottoResult.map { it.toString()} , bonusNum))
+        require(checkDuplicateBonus(LottoResults.lottoResult.map { it.toString()} , bonusNum)){"중복된 숫자가 있습니다. $INPUT_AGAIN"}
 
     }
 
     private fun checkDuplicateLotto(list : List<String>) = list.size == list.toSet().size
-    private fun checkDuplicateBonus(list : List<String> , bonus : String) = list.contains(bonus)
+    private fun checkDuplicateBonus(list : List<String> , bonus : String) = !list.contains(bonus)
 
     private fun checkLottoCount(numbers : List<String>) = numbers.size == 6
 
