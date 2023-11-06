@@ -13,7 +13,7 @@ class LottoUI {
         //로또 뽑기
 
         LottoController().inputNum()
-
+        //로또 번호 입력 받기
 
 
     }

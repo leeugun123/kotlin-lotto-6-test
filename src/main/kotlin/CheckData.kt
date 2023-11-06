@@ -19,7 +19,7 @@ class CheckData {
         require(checkDigitList(numbers)) { WRONG_FORMAT }
         require(checkLottoCount(numbers)) { "6개의 숫자를 ,를 기준으로 입력해주세요." }
         require(checkLottoRange(numbers)) { WRONG_RANGE }
-        require(checkDuplicateNumbers(numbers)) { "중복된 숫자가 있습니다. $INPUT_AGAIN" }
+        require(checkDuplicateLotto(numbers)) { "중복된 숫자가 있습니다. $INPUT_AGAIN" }
 
     }
 
@@ -27,10 +27,12 @@ class CheckData {
 
         require(checkDigitNum(bonusNum)) {WRONG_FORMAT}
         require(checkRange(bonusNum)){WRONG_RANGE}
+        require(checkDuplicateBonus(LottoResults.lottoResult.map { it.toString()} , bonusNum))
 
     }
 
-    private fun checkDuplicateNumbers(list : List<String>) = list.size == list.toSet().size
+    private fun checkDuplicateLotto(list : List<String>) = list.size == list.toSet().size
+    private fun checkDuplicateBonus(list : List<String> , bonus : String) = list.contains(bonus)
 
     private fun checkLottoCount(numbers : List<String>) = numbers.size == 6
 
