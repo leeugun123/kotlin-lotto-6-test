@@ -7,7 +7,7 @@ object LottoCalculating {
 
         for (ticket in purchasedTickets) {
 
-            val matchCount = ticket.intersect(winningNumbers.toSet()).size
+            val matchCount = ticket.intersect(winningNumbers).size
 
             when (matchCount) {
 
@@ -29,11 +29,13 @@ object LottoCalculating {
     fun calculateEarnings(): Double {
 
         val totalEarnings = stats.map { it.key.prize * it.value }.sum()
-        val totalInvestment = stats.values.sum() * 1000
+        val totalInvestment =LottoResults.purchaseNum * 1000
 
-        return (totalEarnings - totalInvestment).toDouble() / totalInvestment * 100
+        return (totalEarnings.toDouble() / totalInvestment * 100).roundTo2DecimalPlaces()
 
     }
+
+    private fun Double.roundTo2DecimalPlaces() = "%,.2f".format(this).toDouble()
 
 
 }

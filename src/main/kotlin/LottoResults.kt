@@ -1,5 +1,7 @@
 object LottoResults {
 
+    var purchaseNum : Int = 0
+
     var lottoNums : MutableList<List<Int>> = mutableListOf()
     //랜덤으로 뽑은 로또 넘버
 

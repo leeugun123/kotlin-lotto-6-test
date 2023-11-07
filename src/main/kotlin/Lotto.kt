@@ -1,10 +1,12 @@
 import LottoResults.lottoNums
+import java.util.Collections
 
 
-class Lotto ( private val numbers: List<Int>) {
+class Lotto (private val numbers: List<Int>) {
 
     init {
         require(numbers.size == 6)
+        Collections.sort(numbers)
         lottoNums.add(numbers)
     }
 

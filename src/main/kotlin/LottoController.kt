@@ -7,6 +7,7 @@ import LottoResults.bonusNum
 import LottoResults.lottoNums
 import LottoResults.lottoResult
 import LottoResults.profitRatio
+import LottoResults.purchaseNum
 import LottoResults.stats
 import camp.nextstep.edu.missionutils.Console
 import camp.nextstep.edu.missionutils.Randoms
@@ -30,7 +31,7 @@ object LottoController {
         }
     }
 
-    fun lottoDraw(purchaseNum: Int) {
+    fun lottoDraw() {
         repeat(purchaseNum) {
             val lottoNum = Randoms.pickUniqueNumbersInRange(1, 45, 6)
             Lotto(lottoNum).printNumbers()
@@ -47,6 +48,7 @@ object LottoController {
         profitRatio = calculateEarnings()
     }
 
+
     fun showResult(){
 
         println("당첨 통계")
@@ -58,7 +60,6 @@ object LottoController {
     }
 
     private fun showLottoStatic(){
-
         for (matchType in MatchType.entries) {
 
             when(matchType.name){
@@ -69,9 +70,7 @@ object LottoController {
                 "FIVE_MATCH_WITH_BONUS" -> println("5개 일치, 보너스 볼 일치 (${matchType.prize}원) - ${stats.getValue(matchType)}개")
                 "SIX_MATCH" -> println("6개 일치 (${matchType.prize}원) - ${stats.getValue(matchType)}개")
             }
-
         }
-
     }
 
 
