@@ -11,6 +11,8 @@ import LottoData.purchaseNum
 import LottoData.stats
 import camp.nextstep.edu.missionutils.Console
 import camp.nextstep.edu.missionutils.Randoms
+import java.text.NumberFormat
+import java.util.*
 
 object LottoController {
 
@@ -64,15 +66,23 @@ object LottoController {
 
             when(matchType.name){
 
-                "THREE_MATCH" -> println("3개 일치 (${matchType.prize}원) - ${stats.getValue(matchType)}개")
-                "FOUR_MATCH" -> println("4개 일치 (${matchType.prize}원) - ${stats.getValue(matchType)}개")
-                "FIVE_MATCH" -> println("5개 일치 (${matchType.prize}원) - ${stats.getValue(matchType)}개")
-                "FIVE_MATCH_WITH_BONUS" -> println("5개 일치, 보너스 볼 일치 (${matchType.prize}원) - ${stats.getValue(matchType)}개")
-                "SIX_MATCH" -> println("6개 일치 (${matchType.prize}원) - ${stats.getValue(matchType)}개")
+
+                "THREE_MATCH" -> println("3개 일치 (" + convertToMoneyFormat(matchType.prize) + "원) - ${stats.getValue(matchType)}개")
+                "FOUR_MATCH" -> println("4개 일치 (" + convertToMoneyFormat(matchType.prize) +  "원) - ${stats.getValue(matchType)}개")
+                "FIVE_MATCH" -> println("5개 일치 (" + convertToMoneyFormat(matchType.prize) + "원) - ${stats.getValue(matchType)}개")
+                "FIVE_MATCH_WITH_BONUS" -> println("5개 일치, 보너스 볼 일치 ("  + convertToMoneyFormat(matchType.prize) + "원) - ${stats.getValue(matchType)}개")
+                "SIX_MATCH" -> println("6개 일치 ("  + convertToMoneyFormat(matchType.prize) + "원) - ${stats.getValue(matchType)}개")
+
             }
         }
     }
 
+
+    private fun convertToMoneyFormat(number: Int): String {
+        val formatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale.KOREA)
+        (formatter as java.text.DecimalFormat).applyPattern("###,###")
+        return formatter.format(number.toLong())
+    }
 
 
     private fun inputLottoNum(): MutableList<Int> {
