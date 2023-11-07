@@ -5,7 +5,6 @@ class Lotto (private val numbers: List<Int>) {
 
     init {
         require(numbers.size == 6)
-        Collections.sort(numbers)
         LottoData.lottoNums.add(numbers)
     }
 
@@ -13,7 +12,7 @@ class Lotto (private val numbers: List<Int>) {
 
     fun printNumbers(){
 
-        val formattedString = numbers.joinToString(prefix = "[", postfix = "]") { it.toString() }
+        val formattedString = numbers.sorted().joinToString(prefix = "[", postfix = "]") { it.toString() }
         println(formattedString)
 
     }
