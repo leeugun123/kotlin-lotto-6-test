@@ -3,12 +3,12 @@ import CheckData.checkInputMoney
 import CheckData.checkLottoNum
 import LottoCalculating.calculateEarnings
 import LottoCalculating.calculateStats
-import LottoResults.bonusNum
-import LottoResults.lottoNums
-import LottoResults.lottoResult
-import LottoResults.profitRatio
-import LottoResults.purchaseNum
-import LottoResults.stats
+import LottoData.bonusNum
+import LottoData.lottoNums
+import LottoData.lottoResult
+import LottoData.profitRatio
+import LottoData.purchaseNum
+import LottoData.stats
 import camp.nextstep.edu.missionutils.Console
 import camp.nextstep.edu.missionutils.Randoms
 

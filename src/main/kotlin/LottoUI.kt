@@ -6,7 +6,7 @@ class LottoUI {
     //로또 구입 시작
     fun lottoExc(){
 
-        LottoResults.purchaseNum = LottoController.lottoPurchase()
+        LottoData.purchaseNum = LottoController.lottoPurchase()
         //로또 개수 입력 받기
 
         LottoController.lottoDraw()
@@ -20,9 +20,7 @@ class LottoUI {
 
         LottoController.showResult()
         //로또 당첨 결과 출력
-
-
-
+        
     }
 
 

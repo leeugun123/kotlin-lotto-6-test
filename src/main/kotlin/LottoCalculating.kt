@@ -1,4 +1,4 @@
-import LottoResults.stats
+import LottoData.stats
 
 object LottoCalculating {
 
@@ -29,7 +29,7 @@ object LottoCalculating {
     fun calculateEarnings(): Double {
 
         val totalEarnings = stats.map { it.key.prize * it.value }.sum()
-        val totalInvestment =LottoResults.purchaseNum * 1000
+        val totalInvestment = LottoData.purchaseNum * 1000
 
         return (totalEarnings.toDouble() / totalInvestment * 100).roundTo2DecimalPlaces()
 

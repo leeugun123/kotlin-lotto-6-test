@@ -1,4 +1,4 @@
-object LottoResults {
+object LottoData {
 
     var purchaseNum : Int = 0
 
@@ -12,5 +12,6 @@ object LottoResults {
     var stats = mutableMapOf<MatchType, Int>().withDefault { 0 }
 
     var profitRatio = 0.0
+
 
 }
