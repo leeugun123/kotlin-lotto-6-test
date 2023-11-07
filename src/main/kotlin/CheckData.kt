@@ -1,34 +1,29 @@
 object CheckData {
 
-    val INPUT_AGAIN = "다시 입력하세요."
-    val WRONG_FORMAT = "잘못된 형식입니다. $INPUT_AGAIN"
-    val WRONG_RANGE = "1~45까지의 숫자 범위 안에서 허용됩니다. $INPUT_AGAIN"
+    private const val ERROR = "[ERROR]"
+    private const val INPUT_AGAIN = "다시 입력하세요."
+    private const val WRONG_FORMAT = "$ERROR 잘못된 형식입니다. $INPUT_AGAIN"
+    private const val WRONG_RANGE = "$ERROR 1~45까지의 숫자 범위 안에서 허용됩니다. $INPUT_AGAIN"
+    private const val DUPLICATE_ERROR = "$ERROR 중복된 숫자가 있습니다. $INPUT_AGAIN"
 
     fun checkInputMoney(inputMoney: String) {
-
-        require(checkPrice(inputMoney)) { "1000원 밑으로는 구매할 수 없습니다." }
-        require(checkDigitNum(inputMoney)) { "문자열에 숫자 이외의 문자가 포함되어 있습니다." }
-        require(checkDivide(inputMoney)) { "1000원 단위로 떨어지지 않습니다." }
-
+        require(checkPrice(inputMoney)) { "$ERROR 1000원 밑으로는 구매할 수 없습니다." }
+        require(checkDigitNum(inputMoney)) { "$ERROR 문자열에 숫자 이외의 문자가 포함되어 있습니다." }
+        require(checkDivide(inputMoney)) { "$ERROR 1000원 단위로 떨어지지 않습니다." }
     }
 
-    fun checkLottoNum(lottoNum : String){
-
+    fun checkLottoNum(lottoNum: String) {
         val numbers = lottoNum.split(",")
-
         require(checkDigitList(numbers)) { WRONG_FORMAT }
         require(checkLottoCount(numbers)) { "6개의 숫자를 ,를 기준으로 입력해주세요." }
         require(checkLottoRange(numbers)) { WRONG_RANGE }
-        require(checkDuplicateLotto(numbers)) { "중복된 숫자가 있습니다. $INPUT_AGAIN" }
-
+        require(checkDuplicateLotto(numbers)) { DUPLICATE_ERROR }
     }
 
-    fun checkBonusNum(bonusNum : String){
-
-        require(checkDigitNum(bonusNum)) {WRONG_FORMAT}
-        require(checkRange(bonusNum)){WRONG_RANGE}
-        require(checkDuplicateBonus(LottoResults.lottoResult.map { it.toString()} , bonusNum)){"중복된 숫자가 있습니다. $INPUT_AGAIN"}
-
+    fun checkBonusNum(bonusNum: String) {
+        require(checkDigitNum(bonusNum)) { WRONG_FORMAT }
+        require(checkRange(bonusNum)) { WRONG_RANGE }
+        require(checkDuplicateBonus(LottoResults.lottoResult.map { it.toString() }, bonusNum)) { DUPLICATE_ERROR }
     }
 
     private fun checkDuplicateLotto(list : List<String>) = list.size == list.toSet().size
