@@ -1,112 +1,75 @@
-import CheckData.checkBonusNum
-import CheckData.checkInputMoney
-import CheckData.checkLottoNum
-import LottoCalculating.calculateEarnings
-import LottoCalculating.calculateStats
+
 import LottoData.bonusNum
-import LottoData.lottoNums
+import LottoData.lottoNum
+import LottoData.lottoNumFormats
 import LottoData.lottoResult
 import LottoData.profitRatio
 import LottoData.purchaseNum
 import LottoData.stats
-import camp.nextstep.edu.missionutils.Console
 import camp.nextstep.edu.missionutils.Randoms
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
+
 
 object LottoController {
 
-    fun lottoPurchase(): Int {
-        while (true) {
-            try {
-                println("구입금액을 입력해주세요.")
-                val inputMoney = Console.readLine()
-                checkInputMoney(inputMoney)
+    private const val LOTTO_RANGE_START = 1
+    private const val LOTTO_RANGE_END = 45
+    private const val LOTTO_DRAW_NUM = 6
 
-                val lottoCount = inputMoney.toInt() / 1000
-                println("$lottoCount 개를 구매했습니다.")
-
-                return lottoCount
-            } catch (e: IllegalArgumentException) {
-                println("예외 발생: ${e.message} 다시 입력해주세요.")
-            }
-        }
+    fun calculateInputMoney(inputMoney : Int){
+        purchaseNum = inputMoney / 1000
     }
 
     fun lottoDraw() {
-        repeat(LottoData.purchaseNum) {
-            val lottoNum = Randoms.pickUniqueNumbersInRange(1, 45, 6)
-            Lotto(lottoNum).printNumbers()
+        repeat(purchaseNum) {
+            val lottoNumList = Randoms.pickUniqueNumbersInRange(LOTTO_RANGE_START, LOTTO_RANGE_END, LOTTO_DRAW_NUM)
+            lottoNumFormats.add(listOf(Lotto(lottoNumList).formatString()))
         }
     }
 
-    fun inputNum() {
-        LottoData.lottoResult = inputLottoNum()
-        LottoData.bonusNum = inputBonusNum()
-    }
 
     fun analyzeLotto() {
-        calculateStats(LottoData.lottoNums, LottoData.lottoResult, LottoData.bonusNum)
-        LottoData.profitRatio = calculateEarnings()
+        calculateStats(lottoNum, lottoResult, bonusNum)
+        profitRatio = calculateEarnings()
     }
 
-    fun showResult() {
-        println("당첨 통계")
-        println("---")
-        showLottoStats()
-        println("총 수익률은 ${LottoData.profitRatio}%입니다.")
-    }
+    private fun calculateStats(purchasedTickets: List<List<Int>>, winningNumbers: List<Int>, bonusNumber: Int) {
 
-    private fun showLottoStats() {
-        for (matchType in MatchType.values()) {
-            val prizeText = convertToMoneyFormat(matchType.prize)
-            val statCount = stats.getValue(matchType)
-            val matchTypeText = when (matchType) {
-                MatchType.THREE_MATCH -> "3개 일치"
-                MatchType.FOUR_MATCH -> "4개 일치"
-                MatchType.FIVE_MATCH -> "5개 일치"
-                MatchType.FIVE_MATCH_WITH_BONUS -> "5개 일치, 보너스 볼 일치"
-                MatchType.SIX_MATCH -> "6개 일치"
-            }
-            println("$matchTypeText ($prizeText) - $statCount 개")
-        }
-    }
+        purchasedTickets.forEach { ticket ->
+            val matchCount = ticket.intersect(winningNumbers.toSet()).size
 
-    private fun convertToMoneyFormat(number: Int): String {
-        val formatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale.KOREA)
-        (formatter as DecimalFormat).applyPattern("###,###")
-        return formatter.format(number.toLong())
-    }
+            when (matchCount) {
 
-    private fun inputLottoNum(): MutableList<Int> {
-        while (true) {
-            try {
-                println("당첨 번호를 입력해 주세요.")
-                val inputNum = Console.readLine()
-                checkLottoNum(inputNum)
-                return addStringToList(inputNum)
-            } catch (e: IllegalArgumentException) {
-                println("${e.message}")
+                3 -> increaseStat(MatchType.THREE_MATCH)
+
+                4 -> increaseStat(MatchType.FOUR_MATCH)
+
+                5 -> if (ticket.contains(bonusNumber))
+                    increaseStat(MatchType.FIVE_MATCH_WITH_BONUS)
+                else increaseStat(MatchType.FIVE_MATCH)
+
+                6 -> increaseStat(MatchType.SIX_MATCH)
+
             }
         }
     }
 
-    private fun inputBonusNum(): Int {
-        while (true) {
-            try {
-                println("보너스 번호를 입력해 주세요.")
-                val bonusNum = Console.readLine()
-                checkBonusNum(bonusNum)
-                return bonusNum.toInt()
-            } catch (e: IllegalArgumentException) {
-                println("${e.message}")
-            }
-        }
+    private fun calculateEarnings(): Double {
+
+        val totalEarnings = stats.map { it.key.prize * it.value }.sum()
+        val totalInvestment = LottoData.purchaseNum * 1000
+        return (totalEarnings.toDouble() / totalInvestment * 100).roundTo2DecimalPlaces()
+
     }
 
-    private fun addStringToList(input: String): MutableList<Int> {
-        return input.split(",").map { it.trim().toInt() }.toMutableList()
+    private fun increaseStat(matchType: MatchType) {
+        stats[matchType] = stats.getValue(matchType) + 1
     }
+
+
+    private fun Double.roundTo2DecimalPlaces() = "%,.2f".format(this).toDouble()
+
+
+
+
 }
 

@@ -1,3 +1,4 @@
+import LottoData.inputMoney
 import LottoData.lottoResult
 
 object CheckData {
@@ -12,7 +13,7 @@ object CheckData {
     private const val NOT_DIVIDE_MONEY = "$ERROR 1000원 단위로 떨어지지 않습니다."
     private const val INPUT_FORMAT_RULE = "$ERROR 6개의 숫자를 ,를 기준으로 입력해주세요."
 
-    fun checkInputMoney(inputMoney: String) {
+    fun checkInputMoney() {
         require(checkPrice(inputMoney)) { LOW_PRICE }
         require(checkDigitNum(inputMoney)) { INCLUDE_STR }
         require(checkDivide(inputMoney)) { NOT_DIVIDE_MONEY }
@@ -49,9 +50,7 @@ object CheckData {
 
     private fun checkRange(lotto : String) = Integer.parseInt(lotto) in 1..45
 
-    private fun String.isNumeric(): Boolean {
-        return this.matches("-?\\d+(\\.\\d+)?".toRegex())
-    }
+    private fun String.isNumeric() = this.matches("-?\\d+(\\.\\d+)?".toRegex())
 
 
 }
