@@ -131,7 +131,7 @@ class LottoUI {
 
     private fun showLottoStats() {
         for (matchType in MatchType.entries) {
-            val prizeText = convertToMoneyFormat(matchType.prize)
+            val prizeText = convertToMoneyFormat(matchType.prize) + "원"
             val statCount = stats.getValue(matchType)
             val matchTypeText = when (matchType) {
                 MatchType.THREE_MATCH -> THREE_BINGO
@@ -140,7 +140,7 @@ class LottoUI {
                 MatchType.FIVE_MATCH_WITH_BONUS -> FIVE_BINGO_PLUS_BONUS
                 MatchType.SIX_MATCH -> SIX_BINGO
             }
-            println("$matchTypeText ($prizeText) - $statCount 개")
+            println("$matchTypeText ($prizeText) - " + "$statCount" + "개")
         }
     }
 
