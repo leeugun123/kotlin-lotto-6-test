@@ -1,3 +1,5 @@
+package Model
+
 class Lotto (private val numbers: List<Int>) {
 
     init {

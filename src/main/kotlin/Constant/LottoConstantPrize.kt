@@ -1,3 +1,5 @@
+package Constant
+
 object LottoConstantPrize {
     const val THREE_MATCH_PRICE = 5000
     const val FOUR_MATCH_PRICE = 50000

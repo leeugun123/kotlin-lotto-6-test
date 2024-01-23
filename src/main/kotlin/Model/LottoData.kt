@@ -1,3 +1,7 @@
+package Model
+
+import Util.MatchType
+
 object LottoData {
 
     var inputMoney = ""

@@ -1,11 +1,14 @@
-
-import LottoData.bonusNum
-import LottoData.lottoNum
-import LottoData.lottoNumFormats
-import LottoData.lottoResult
-import LottoData.profitRatio
-import LottoData.purchaseNum
-import LottoData.stats
+package Controller
+import Model.LottoData.bonusNum
+import Model.LottoData.lottoNum
+import Model.LottoData.lottoNumFormats
+import Model.LottoData.lottoResult
+import Model.LottoData.profitRatio
+import Model.LottoData.purchaseNum
+import Model.LottoData.stats
+import Model.Lotto
+import Model.LottoData
+import Util.MatchType
 import camp.nextstep.edu.missionutils.Randoms
 
 

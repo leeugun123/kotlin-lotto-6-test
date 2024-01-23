@@ -1,13 +1,17 @@
-import CheckData.checkBonusNum
-import CheckData.checkInputMoney
-import CheckData.checkLottoNum
-import LottoData.bonusNum
-import LottoData.inputMoney
-import LottoData.lottoNumFormats
-import LottoData.lottoResult
-import LottoData.profitRatio
-import LottoData.purchaseNum
-import LottoData.stats
+package View
+
+import ExceptionHandler.CheckData.checkBonusNum
+import ExceptionHandler.CheckData.checkInputMoney
+import ExceptionHandler.CheckData.checkLottoNum
+import Controller.LottoController
+import Model.LottoData.bonusNum
+import Model.LottoData.inputMoney
+import Model.LottoData.lottoNumFormats
+import Model.LottoData.lottoResult
+import Model.LottoData.profitRatio
+import Model.LottoData.purchaseNum
+import Model.LottoData.stats
+import Util.MatchType
 import camp.nextstep.edu.missionutils.Console
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -37,24 +41,12 @@ class LottoUI {
     //로또 구입 시작
     fun lottoProcess(){
 
-        lottoPurchase()
-        //로또 구매
-
-        LottoController.lottoDraw()
-        //로또 뽑기
-
-        lottoNumPrint()
-        //로또 뽑은 로또 출력
-
-        inputLottoAndBonus()
-        //로또 번호 입력 받기
-
-        LottoController.analyzeLotto()
-        //로또 번호 분석
-
-        showResult()
-        //로또 당첨 결과 출력
-
+        lottoPurchase() //로또 구매
+        LottoController.lottoDraw() //로또 뽑기
+        lottoNumPrint() //로또 뽑은 로또 출력
+        inputLottoAndBonus() //로또 번호 입력 받기
+        LottoController.analyzeLotto() //로또 번호 분석
+        showResult() //로또 당첨 결과 출력
 
     }
 
@@ -84,7 +76,7 @@ class LottoUI {
 
     private fun calculateLottoNum() {
         LottoController.calculateInputMoney(inputMoney.toInt())
-        println("$purchaseNum" +PURCHASE_LOTTO_NUM_GUIDE)
+        println("$purchaseNum" + PURCHASE_LOTTO_NUM_GUIDE)
     }
 
     private fun inputLottoAndBonus() {

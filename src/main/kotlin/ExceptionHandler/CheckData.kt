@@ -1,5 +1,7 @@
-import LottoData.inputMoney
-import LottoData.lottoResult
+package ExceptionHandler
+
+import Model.LottoData.inputMoney
+import Model.LottoData.lottoResult
 
 object CheckData {
 

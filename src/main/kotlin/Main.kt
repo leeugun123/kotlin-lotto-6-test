@@ -1,3 +1,4 @@
+import View.LottoUI
 
 fun main(args: Array<String>) {
 
