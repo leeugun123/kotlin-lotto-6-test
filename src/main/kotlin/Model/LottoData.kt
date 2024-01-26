@@ -12,9 +12,9 @@ object LottoData {
 
     var lottoNum = mutableListOf<List<Int>>()  //랜덤 으로 뽑은 로또 넘버
 
-    var lottoResult = mutableListOf<Int>()
+    var winningNumbers = WinningNumbers(mutableListOf()).winningNumbers
 
-    var bonusNum = 0
+    var bonusNum = BonusNumber(0).bonusNumber
 
     var stats = mutableMapOf<MatchType, Int>().withDefault { 0 }
 

@@ -1,7 +1,7 @@
 package ExceptionHandler
 
 import Model.LottoData.inputMoney
-import Model.LottoData.lottoResult
+import Model.LottoData.winningNumbers
 
 object CheckData {
 
@@ -27,12 +27,13 @@ object CheckData {
         require(checkLottoCount(numbers)) { INPUT_FORMAT_RULE }
         require(checkLottoRange(numbers)) { WRONG_RANGE }
         require(checkDuplicateLotto(numbers)) { DUPLICATE_ERROR }
+
     }
 
     fun checkBonusNum(bonusNum: String) {
         require(checkDigitNum(bonusNum)) { WRONG_FORMAT }
         require(checkRange(bonusNum)) { WRONG_RANGE }
-        require(checkDuplicateBonus(lottoResult.map { it.toString() }, bonusNum)) { DUPLICATE_ERROR }
+        require(checkDuplicateBonus(winningNumbers.map { it.toString() }, bonusNum)) { DUPLICATE_ERROR }
     }
 
     private fun checkDuplicateLotto(list : List<String>) = list.size == list.toSet().size

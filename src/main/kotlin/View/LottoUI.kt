@@ -4,10 +4,10 @@ import ExceptionHandler.CheckData.checkBonusNum
 import ExceptionHandler.CheckData.checkInputMoney
 import ExceptionHandler.CheckData.checkLottoNum
 import Controller.LottoController
+import Model.LottoData
 import Model.LottoData.bonusNum
 import Model.LottoData.inputMoney
 import Model.LottoData.lottoNumFormats
-import Model.LottoData.lottoResult
 import Model.LottoData.profitRatio
 import Model.LottoData.purchaseNum
 import Model.LottoData.stats
@@ -80,7 +80,7 @@ class LottoUI {
     }
 
     private fun inputLottoAndBonus() {
-        lottoResult = inputLottoNum()
+        LottoData.winningNumbers = inputLottoNum()
         bonusNum = inputBonusNum()
     }
 
