@@ -44,6 +44,7 @@ object LottoController {
     private fun calculateStats(purchasedTickets: List<List<Int>>, winningNumbers : List<Int>, bonusNumber : Int) {
 
         purchasedTickets.forEach { ticket ->
+
             val matchCount = ticket.intersect(winningNumbers.toSet()).size
 
             when (matchCount) {
@@ -52,10 +53,14 @@ object LottoController {
 
                 FOUR_MATCH -> increaseStat(MatchType.FOUR_MATCH)
 
-                FIVE_MATCH -> if (ticket.contains(bonusNumber))
-                    increaseStat(MatchType.FIVE_MATCH_WITH_BONUS)
+                FIVE_MATCH -> {
 
-                else increaseStat(MatchType.FIVE_MATCH)
+                    if (ticket.contains(bonusNumber))
+                        increaseStat(MatchType.FIVE_MATCH_WITH_BONUS)
+                    else
+                        increaseStat(MatchType.FIVE_MATCH)
+
+                }
 
                 SIX_MATCH -> increaseStat(MatchType.SIX_MATCH)
 
