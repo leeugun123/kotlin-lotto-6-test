@@ -63,12 +63,12 @@ object LottoController {
         }
     }
 
-    private fun calculateEarnings(): Double {
+    private fun calculateEarnings(): String {
 
-        val totalEarnings = stats.map { it.key.prize * it.value }.sum()
-        val totalInvestment = purchaseNum * 1000
-        return (totalEarnings.toDouble() / totalInvestment * 100).roundTo2DecimalPlaces()
+        val totalEarnings : Int = stats.map { it.key.prize * it.value }.sum()
+        val totalInvestment : Int = purchaseNum * 1000
 
+        return getReturnRate(totalEarnings,totalInvestment)
     }
 
     private fun increaseStat(matchType: MatchType) {
@@ -76,9 +76,11 @@ object LottoController {
     }
 
 
-    private fun Double.roundTo2DecimalPlaces() = "%,.2f".format(this).toDouble()
 
-
+    private fun getReturnRate(totalEarning : Int , purchaseAmount: Int): String {
+        val returnRate = (totalEarning.toDouble() / purchaseAmount) * 100
+        return String.format("%.1f", returnRate)
+    }
 
 
 }

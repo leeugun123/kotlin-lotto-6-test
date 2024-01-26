@@ -118,7 +118,7 @@ class LottoUI {
         println(WINNING_STATUS)
         println(LINE)
         showLottoStats()
-        println("$TOTAL_GUIDE_START$profitRatio$TOTAL_GUIDE_END")
+        println("$TOTAL_GUIDE_START $profitRatio$TOTAL_GUIDE_END")
     }
 
     private fun showLottoStats() {
@@ -141,5 +141,6 @@ class LottoUI {
         (formatter as DecimalFormat).applyPattern("###,###")
         return formatter.format(number.toLong())
     }
+
 
 }
