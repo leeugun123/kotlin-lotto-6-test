@@ -123,7 +123,7 @@ class LottoUI {
 
     private fun showLottoStats() {
         for (matchType in MatchType.entries) {
-            val prizeText = convertToMoneyFormat(matchType.prize) + "원"
+            val prizeText = LottoController.convertToMoneyFormat(matchType.prize) + "원"
             val statCount = stats.getValue(matchType)
             val matchTypeText = when (matchType) {
                 MatchType.THREE_MATCH -> THREE_BINGO
@@ -136,11 +136,7 @@ class LottoUI {
         }
     }
 
-    private fun convertToMoneyFormat(number: Int): String {
-        val formatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale.KOREA)
-        (formatter as DecimalFormat).applyPattern("###,###")
-        return formatter.format(number.toLong())
-    }
+
 
 
 }

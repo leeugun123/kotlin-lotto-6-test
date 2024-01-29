@@ -9,6 +9,9 @@ import Model.Lotto
 import Model.LottoData.winningNumbers
 import Util.MatchType
 import camp.nextstep.edu.missionutils.Randoms
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
 
 
 object LottoController {
@@ -85,6 +88,13 @@ object LottoController {
     private fun getReturnRate(totalEarning : Int , purchaseAmount: Int): String {
         val returnRate = (totalEarning.toDouble() / purchaseAmount) * 100
         return String.format("%.1f", returnRate)
+    }
+
+
+    fun convertToMoneyFormat(number: Int): String {
+        val formatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale.KOREA)
+        (formatter as DecimalFormat).applyPattern("###,###")
+        return formatter.format(number.toLong())
     }
 
 
