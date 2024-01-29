@@ -79,8 +79,8 @@ object LottoController {
 
     private fun calculateEarnings(): String {
 
-        val totalEarnings : Int = stats.map { it.key.prize * it.value }.sum()
-        val totalInvestment : Int = purchaseNum * 1000
+        val totalEarnings = stats.map { it.key.prize * it.value }.sum()
+        val totalInvestment = purchaseNum * 1000
 
         return getReturnRate(totalEarnings,totalInvestment)
     }
