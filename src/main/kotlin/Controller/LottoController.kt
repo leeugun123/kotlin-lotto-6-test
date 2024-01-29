@@ -44,6 +44,12 @@ object LottoController {
         profitRatio = calculateEarnings()
     }
 
+    fun convertToMoneyFormat(number: Int): String {
+        val formatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale.KOREA)
+        (formatter as DecimalFormat).applyPattern("###,###")
+        return formatter.format(number.toLong())
+    }
+
     private fun calculateStats(purchasedTickets: List<List<Int>>, winningNumbers : List<Int>, bonusNumber : Int) {
 
         purchasedTickets.forEach { ticket ->
@@ -91,11 +97,7 @@ object LottoController {
     }
 
 
-    fun convertToMoneyFormat(number: Int): String {
-        val formatter: NumberFormat = NumberFormat.getCurrencyInstance(Locale.KOREA)
-        (formatter as DecimalFormat).applyPattern("###,###")
-        return formatter.format(number.toLong())
-    }
+
 
 
 }
