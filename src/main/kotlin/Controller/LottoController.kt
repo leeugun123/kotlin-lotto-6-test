@@ -8,30 +8,44 @@ import Model.LottoData.stats
 import Model.Lotto
 import Model.LottoData.winningNumbers
 import Util.MatchType
+import View.LottoUI
 import camp.nextstep.edu.missionutils.Randoms
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
 
-object LottoController {
+class LottoController {
 
+    companion object{
 
-    private const val LOTTO_RANGE_START = 1
-    private const val LOTTO_RANGE_END = 45
-    private const val LOTTO_DRAW_NUM = 6
+        private const val LOTTO_RANGE_START = 1
+        private const val LOTTO_RANGE_END = 45
+        private const val LOTTO_DRAW_NUM = 6
 
-    private const val THREE_MATCH = 3
-    private const val FOUR_MATCH = 4
-    private const val FIVE_MATCH = 5
-    private const val SIX_MATCH = 6
+        private const val THREE_MATCH = 3
+        private const val FOUR_MATCH = 4
+        private const val FIVE_MATCH = 5
+        private const val SIX_MATCH = 6
 
-
-    fun calculateInputMoney(inputMoney : Int){
-        purchaseNum = inputMoney / 1000
     }
 
-    fun lottoDraw() {
+
+    fun lottoProcessStart(){
+
+        LottoUI().lottoPurchase() //로또 구매
+        lottoDraw() //로또 뽑기
+        LottoUI().lottoNumPrint() //로또 뽑은 로또 출력
+        LottoUI().inputLottoAndBonus() //로또 번호 입력 받기
+        analyzeLotto() //로또 번호 분석
+        LottoUI().showResult() //로또 당첨 결과 출력
+
+    }
+
+
+    fun calculateInputMoney(inputMoney : Int) = inputMoney / 1000
+
+    private fun lottoDraw() {
         repeat(purchaseNum) {
             val lottoNumList = Randoms.pickUniqueNumbersInRange(LOTTO_RANGE_START, LOTTO_RANGE_END, LOTTO_DRAW_NUM)
             lottoNumFormats.add(listOf(Lotto(lottoNumList).formatString()))
@@ -39,7 +53,7 @@ object LottoController {
     }
 
 
-    fun analyzeLotto() {
+    private fun analyzeLotto() {
         calculateStats(lottoNum, winningNumbers, bonusNum)
         profitRatio = calculateEarnings()
     }

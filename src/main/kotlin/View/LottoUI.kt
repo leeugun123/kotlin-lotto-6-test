@@ -39,34 +39,39 @@ class LottoUI {
     }
 
     //로또 구입 시작
-    fun lottoProcess(){
 
-        lottoPurchase() //로또 구매
-        LottoController.lottoDraw() //로또 뽑기
-        lottoNumPrint() //로또 뽑은 로또 출력
-        inputLottoAndBonus() //로또 번호 입력 받기
-        LottoController.analyzeLotto() //로또 번호 분석
-        showResult() //로또 당첨 결과 출력
 
-    }
-
-    private fun lottoNumPrint() {
+    fun lottoNumPrint() {
         lottoNumFormats.forEach { lottoNumFormat ->
             println(lottoNumFormat)
         }
     }
 
-    private fun lottoPurchase()  {
+    fun lottoPurchase()  {
 
         while (true) {
             try {
                 inputPurchaseMoney()
                 calculateLottoNum()
+                printLottoPurchaseNum()
                 return
             } catch (e: IllegalArgumentException) { println(EXCEPTION_OCCUR + e.message + INPUT_AGAIN) }
         }
 
     }
+
+    fun inputLottoAndBonus() {
+        LottoData.winningNumbers = inputLottoNum()
+        bonusNum = inputBonusNum()
+    }
+
+    fun showResult() {
+        println(WINNING_STATUS)
+        println(LINE)
+        showLottoStats()
+        println("$TOTAL_GUIDE_START $profitRatio$TOTAL_GUIDE_END")
+    }
+
 
     private fun inputPurchaseMoney() {
         println(INPUT_PURCHASE_MONEY_GUIDE)
@@ -75,14 +80,13 @@ class LottoUI {
     }
 
     private fun calculateLottoNum() {
-        LottoController.calculateInputMoney(inputMoney.toInt())
+        purchaseNum = LottoController().calculateInputMoney(inputMoney.toInt())
+    }
+
+    private fun printLottoPurchaseNum(){
         println("$purchaseNum" + PURCHASE_LOTTO_NUM_GUIDE)
     }
 
-    private fun inputLottoAndBonus() {
-        LottoData.winningNumbers = inputLottoNum()
-        bonusNum = inputBonusNum()
-    }
 
     private fun inputLottoNum(): MutableList<Int> {
         while (true) {
@@ -114,16 +118,9 @@ class LottoUI {
         return input.split(",").map { it.trim().toInt() }.toMutableList()
     }
 
-    private fun showResult() {
-        println(WINNING_STATUS)
-        println(LINE)
-        showLottoStats()
-        println("$TOTAL_GUIDE_START $profitRatio$TOTAL_GUIDE_END")
-    }
-
     private fun showLottoStats() {
         for (matchType in MatchType.entries) {
-            val prizeText = LottoController.convertToMoneyFormat(matchType.prize) + "원"
+            val prizeText = LottoController().convertToMoneyFormat(matchType.prize) + "원"
             val statCount = stats.getValue(matchType)
             val matchTypeText = when (matchType) {
                 MatchType.THREE_MATCH -> THREE_BINGO
